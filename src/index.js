@@ -21,10 +21,9 @@ const dataLoader = new DataLoader(async keys => {
     }
   })
 
-  const result = keys.reduce((acc, key) => {
-    acc.push(tasks.filter(t => t.jobId === key))
-    return acc
-  }, [])
+  const result = keys.map(key => {
+    return tasks.filter(t => t.jobId === key)
+  })
 
   return result
 })
