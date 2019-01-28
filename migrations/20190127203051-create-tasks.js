@@ -24,6 +24,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: new Date()
+      },
+      jobId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Jobs',
+          key: 'id'
+        }
       }
     })
   },
