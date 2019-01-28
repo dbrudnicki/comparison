@@ -10,7 +10,7 @@ let start = 0
 let operName = ''
 
 /**
- * Uses map and forEach to increase speed of data transform.
+ * DataLoader implementation.
  */
 const dataLoader = new DataLoader(async keys => {
   const tasks = await db.Tasks.findAll({
