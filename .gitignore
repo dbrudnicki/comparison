@@ -13,3 +13,6 @@ node_modules
 
 # MySql data
 mysql
+
+# Seed data
+seeders
