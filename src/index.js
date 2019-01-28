@@ -21,11 +21,13 @@ const dataLoader = new DataLoader(async keys => {
     }
   })
 
-  const result = keys.map(key => {
-    return tasks.filter(t => t.jobId === key)
+  const keyMap = new Map(keys.map(k => [k, []]))
+
+  tasks.forEach(t => {
+    keyMap.get(t.jobId).push(t)
   })
 
-  return result
+  return [...keyMap.values()]
 })
 
 /**
