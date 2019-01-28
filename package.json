@@ -1,0 +1,25 @@
+{
+  "name": "comparison",
+  "version": "1.0.0",
+  "description": "Comparing data fetching with resolver dataloaders vs joins.",
+  "main": "src/index.js",
+  "repository": "git@github.com:dbrudnicki/comparison.git",
+  "author": "dbrudnicki <davidbrudnicki@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dataloader": "^1.4.0",
+    "graphql-yoga": "^1.17.1",
+    "mysql2": "^1.6.4",
+    "prettier": "^1.16.1",
+    "sequelize": "^4.42.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "sequelize-cli": "^5.4.0"
+  }
+}
