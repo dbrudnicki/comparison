@@ -21,14 +21,21 @@ const dataLoader = new DataLoader(async keys => {
     }
   })
 
-  const keyList = new Map(keys.map(k => [k, []]))
+  // const result = keys.reduce((acc, key) => {
+  //   acc.push(tasks.filter(t => t.jobId === key))
+  //   return acc
+  // }, [])
+
+  // return result
+
+  const keyMap = new Map(keys.map(k => [k, []]))
 
   tasks.forEach(t => {
-    const arr = keyList.get(t.jobId)
+    const arr = keyMap.get(t.jobId)
     arr.push(t)
   })
 
-  return [...keyList.values()]
+  return [...keyMap.values()]
 })
 
 /**
@@ -86,7 +93,10 @@ server.express.use((req, res, next) => {
   operName = req.body.operationName
   start = new Date().getTime()
 
-  res.on('finish', () => console.log(`${operName} Time: ${new Date().getTime() - start} ms.`))
+  res.on('finish', () => {
+    dataLoader.clearAll()
+    console.log(`${operName} Time: ${new Date().getTime() - start} ms.`)
+  })
 
   next()
 })
