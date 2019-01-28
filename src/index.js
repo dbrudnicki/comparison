@@ -21,21 +21,21 @@ const dataLoader = new DataLoader(async keys => {
     }
   })
 
-  // const result = keys.reduce((acc, key) => {
-  //   acc.push(tasks.filter(t => t.jobId === key))
-  //   return acc
-  // }, [])
+  const result = keys.reduce((acc, key) => {
+    acc.push(tasks.filter(t => t.jobId === key))
+    return acc
+  }, [])
 
-  // return result
+  return result
 
-  const keyMap = new Map(keys.map(k => [k, []]))
+  // const keyMap = new Map(keys.map(k => [k, []]))
 
-  tasks.forEach(t => {
-    const arr = keyMap.get(t.jobId)
-    arr.push(t)
-  })
+  // tasks.forEach(t => {
+  //   const arr = keyMap.get(t.jobId)
+  //   arr.push(t)
+  // })
 
-  return [...keyMap.values()]
+  // return [...keyMap.values()]
 })
 
 /**
@@ -94,8 +94,8 @@ server.express.use((req, res, next) => {
   start = new Date().getTime()
 
   res.on('finish', () => {
-    dataLoader.clearAll()
     console.log(`${operName} Time: ${new Date().getTime() - start} ms.`)
+    dataLoader.clearAll()
   })
 
   next()
