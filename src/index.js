@@ -27,15 +27,6 @@ const dataLoader = new DataLoader(async keys => {
   }, [])
 
   return result
-
-  // const keyMap = new Map(keys.map(k => [k, []]))
-
-  // tasks.forEach(t => {
-  //   const arr = keyMap.get(t.jobId)
-  //   arr.push(t)
-  // })
-
-  // return [...keyMap.values()]
 })
 
 /**
