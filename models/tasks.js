@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Tasks.associate = models => {
     Tasks.belongsTo(models.Jobs, { foreignKey: 'jobId' })
+    Tasks.hasMany(models.TimeSegments, { foreignKey: 'taskId' })
   }
 
   return Tasks

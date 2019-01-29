@@ -10,9 +10,9 @@ let start = 0
 let operName = ''
 
 /**
- * DataLoader implementation.
+ * DataLoader implementations.
  */
-const dataLoader = new DataLoader(async keys => {
+const taskLoader = new DataLoader(async keys => {
   const tasks = await db.Tasks.findAll({
     where: {
       jobId: {
@@ -30,13 +30,40 @@ const dataLoader = new DataLoader(async keys => {
   return [...keyMap.values()]
 })
 
+const tsLoader = new DataLoader(async keys => {
+  const tsList = await db.TimeSegments.findAll({
+    where: {
+      taskId: {
+        [db.Op.in]: keys
+      }
+    }
+  })
+
+  const keyMap = new Map(keys.map(k => [k, []]))
+
+  tsList.forEach(ts => {
+    keyMap.get(ts.taskId).push(ts)
+  })
+
+  return [...keyMap.values()]
+})
+
 /**
  * The schema type definitons.
  */
 const typeDefs = `
+  type TimeSegment {
+    id: Int!
+    displayName: String
+    duration: Int
+    sequence: Int
+  }
+
   type Task {
     id: Int!
     name: String!
+    timeSegments: [TimeSegment!]!
+    TimeSegments: [TimeSegment!]!
   }
 
   type Job {
@@ -57,14 +84,26 @@ const typeDefs = `
  * Resolvers.
  */
 const resolvers = {
+  Task: {
+    timeSegments: ({ id }) => tsLoader.load(id)
+  },
   Job: {
-    tasks: ({ id }) => dataLoader.load(id)
+    tasks: ({ id }) => taskLoader.load(id)
   },
   Query: {
     dataLoaderJobs: async () => await db.Jobs.findAll(),
     joinedJobs: async () => {
       const resp = await db.Jobs.findAll({
-        include: db.Tasks
+        include: [
+          {
+            model: db.Tasks,
+            include: [
+              {
+                model: db.TimeSegments
+              }
+            ]
+          }
+        ]
       })
       return resp
     }
@@ -87,7 +126,8 @@ server.express.use((req, res, next) => {
 
   res.on('finish', () => {
     console.log(`${operName} Time: ${new Date().getTime() - start} ms.`)
-    dataLoader.clearAll()
+    taskLoader.clearAll()
+    tsLoader.clearAll()
   })
 
   next()
