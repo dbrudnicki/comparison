@@ -1,0 +1,26 @@
+type TimeSegment {
+  id: Int!
+  displayName: String
+  duration: Int
+  sequence: Int
+}
+
+type Task {
+  id: Int!
+  name: String!
+  timeSegments: [TimeSegment!]!
+  TimeSegments: [TimeSegment!]!
+}
+
+type Job {
+  id: Int!
+  name: String!
+  buildPart: String
+  tasks: [Task!]!
+  Tasks: [Task!]!
+}
+
+type Query {
+  dataLoaderJobs: [Job!]!
+  joinedJobs: [Job!]!
+}

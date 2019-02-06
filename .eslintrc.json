@@ -1,21 +1,9 @@
 {
-  "extends": [
-    "standard",
-    "plugin:jest/recommended"
-  ],
-  "plugins": [
-    "import",
-    "jest"
-  ],
-  "env": {
-      "node": true,
-      "jest/globals": true
-  },
-  "rules": {
-      "no-trailing-spaces": "off",
-      "padded-blocks": "off",
-      "space-before-function-paren": "off",
-      "no-useless-escape": "off",
-      "jest/no-disabled-tests": "off"
-  }
+    "extends": "standard",
+    "rules": {
+        "no-trailing-spaces": "off",
+        "padded-blocks": "off",
+        "space-before-function-paren": "off",
+        "no-useless-escape": "off"
+    }
 }
