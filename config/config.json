@@ -4,6 +4,7 @@
     "password": "wasabi",
     "database": "junk",
     "host": "localhost",
+    "port": 3307,
     "dialect": "mysql",
     "logging": false
   },
@@ -12,6 +13,7 @@
     "password": "wasabi",
     "database": "junk",
     "host": "localhost",
+    "port": 3307,
     "dialect": "mysql"
   },
   "production": {
@@ -19,6 +21,7 @@
     "password": "wasabi",
     "database": "junk",
     "host": "localhost",
+    "port": 3307,
     "dialect": "mysql"
   }
 }

@@ -5,7 +5,7 @@ services:
     image: mysql:5.7
     restart: always
     ports:
-      - '3306:3306'
+      - '3307:3306'
     environment:
       - MYSQL_ROOT_PASSWORD=wasabi
       - MYSQL_DATABASE=junk

@@ -9,9 +9,13 @@ module.exports = {
     tasks: ({ id }) => taskLoader.load(id)
   },
   Query: {
-    dataLoaderJobs: () => db.Jobs.findAll(),
+    dataLoaderJobs: async () => {
+      taskLoader.clearAll()
+      tsLoader.clearAll()
+      const jobs = await db.Jobs.findAll()
+      return jobs
+    },
     joinedJobs: async (node, args, ctx, info) => {
-      const start = new Date().getTime()
       const resp = await db.Jobs.findAll({
         include: [
           {
@@ -24,7 +28,7 @@ module.exports = {
           }
         ]
       })
-      console.log(`${new Date().getTime() - start} ms.`)
+
       return resp
     }
   }
